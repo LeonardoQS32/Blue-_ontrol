@@ -1,14 +1,15 @@
 import 'package:flutter/material.dart';
 
-class BotaoConexao extends StatelessWidget {
+class BotaoDirecao extends StatelessWidget {
   final VoidCallback? onPressed;
   final Color? backgroundColor;
+  final IconData iconData;
 
-  const BotaoConexao({
-    super.key,
-    this.onPressed,
-    this.backgroundColor,
-  });
+  const BotaoDirecao(
+      {super.key,
+      this.onPressed,
+      this.backgroundColor,
+      required this.iconData});
 
   @override
   Widget build(BuildContext context) {
@@ -19,10 +20,10 @@ class BotaoConexao extends StatelessWidget {
         shape: BoxShape.circle,
       ),
       child: IconButton(
-        icon: const Icon(Icons.bluetooth),
+        icon: Icon(iconData),
         onPressed: onPressed,
         color: Colors.white70,
-        iconSize: 32,
+        iconSize: 48,
       ),
     );
   }

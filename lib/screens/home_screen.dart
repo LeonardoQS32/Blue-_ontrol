@@ -1,11 +1,7 @@
-//import 'dart:convert';
-//import 'dart:io';
-
 import 'dart:convert';
-
-import 'package:blue_control/bluetooth_state.dart';
-import 'package:blue_control/core/bluetooth_service.dart';
+import 'package:blue_control/models/enums/bluetooth_state.dart';
 import 'package:blue_control/widgets/botao_conexao.dart';
+import 'package:blue_control/widgets/botao_direcao.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_blue_plus/flutter_blue_plus.dart';
@@ -27,7 +23,6 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   void initState() {
     _verificaBluetooth();
-    //_verifica();
     _checkPermissions();
     super.initState();
   }
@@ -73,9 +68,8 @@ class _HomeScreenState extends State<HomeScreen> {
     Widget botaoConexao = const Text('data');
     switch (_bluetoothState) {
       case BluetoothEstado.bluetoohOff:
-        botaoConexao = const BotaoConexao(
-            backgroundColor: Colors.redAccent,
-            onPressed: MyBluetoohService.ligarBluetooth);
+        botaoConexao = BotaoConexao(
+            backgroundColor: Colors.redAccent, onPressed: _ligarBluetooth);
         break;
       case BluetoothEstado.bluetoohOn:
         botaoConexao = BotaoConexao(
@@ -93,17 +87,54 @@ class _HomeScreenState extends State<HomeScreen> {
         padding: const EdgeInsets.all(8.0),
         child: Column(children: [
           const SizedBox(
-            height: 25,
+            height: 20,
           ),
-          botaoConexao,
+          Align(alignment: Alignment.topLeft, child: botaoConexao),
+          const SizedBox(
+            height: 10,
+          ),
+          Center(
+            child: BotaoDirecao(
+              onPressed: () {
+                _sendData('F');
+              },
+              backgroundColor: Colors.redAccent,
+              iconData: Icons.keyboard_arrow_up,
+            ),
+          ),
           const SizedBox(
             height: 25,
           ),
-          BotaoConexao(
-            onPressed: () {
-              _sendData('FF');
-            },
-            backgroundColor: Colors.greenAccent,
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: [
+              BotaoDirecao(
+                onPressed: () {
+                  _sendData('E');
+                },
+                backgroundColor: Colors.redAccent,
+                iconData: Icons.keyboard_arrow_left,
+              ),
+              BotaoDirecao(
+                onPressed: () {
+                  _sendData('D');
+                },
+                backgroundColor: Colors.redAccent,
+                iconData: Icons.keyboard_arrow_right,
+              ),
+            ],
+          ),
+          const SizedBox(
+            height: 25,
+          ),
+          Center(
+            child: BotaoDirecao(
+              onPressed: () {
+                _sendData('T');
+              },
+              backgroundColor: Colors.redAccent,
+              iconData: Icons.keyboard_arrow_down,
+            ),
           ),
         ]),
       ),
