@@ -22,8 +22,8 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   void initState() {
-    _verificaBluetooth();
     _checkPermissions();
+    _verificaBluetooth();
     super.initState();
   }
 
